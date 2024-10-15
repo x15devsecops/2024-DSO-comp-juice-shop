@@ -1,0 +1,19 @@
+name: Run DevSecOps Scans
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  run-sast:
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    uses: x15devsecops/workflow-library/.github/workflows/dso24-sast.yml@main
+
+  run-sca:
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    uses: x15devsecops/workflow-library/.github/workflows/dso24-sca.yml@main
